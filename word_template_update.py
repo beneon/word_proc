@@ -93,6 +93,13 @@ class ParagraphRunProc:
 
 class DocxUpdate:
     def __init__(self,tag_dict:dict,identifier:str,template_path:str, dunder_included:bool=False):
+        """
+
+        :param tag_dict: 提供数据的字典
+        :param identifier: 字典中对该记录有辨识作用的key，其value将作为输出文档的文件名
+        :param template_path: 模板docx文档所在位置
+        :param dunder_included: 字典中各个key字符是否包含前后两个__，默认为False
+        """
         self.identifier = tag_dict[identifier]
         self.tag_dict = tag_dict
         self.doc = docx.Document(template_path)
@@ -130,6 +137,11 @@ class DocxUpdate:
         return run
 
     def table_update(self,table_id):
+        """
+
+        :param table_id: zero based id for table to be processed
+        :return:
+        """
         rows_num = len(self.doc.tables[table_id].rows)
         for i in range(rows_num):
             for rc in self.doc.tables[table_id].row_cells(i):
